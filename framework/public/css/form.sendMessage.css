@@ -1,0 +1,8 @@
+div#ui-popup-sendMessage {
+	width:680px;
+	margin:10px;
+	-webkit-border-radius:5px 5px;
+	border-radius:5px 5px;
+	background-color:#ffffff;
+	border:1px solid #999999;
+}

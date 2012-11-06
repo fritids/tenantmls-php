@@ -1,0 +1,365 @@
+<?php
+class UsersController extends Controller {
+	/* Api Calls */
+	function api_select($tmls,$options) {
+		$this->User->id = $tmls;
+		$this->User->showHasOne();
+		$this->User->showHasMany();
+		$this->User->showHMABTM();
+		$data = $this->User->search();
+		if (count($data)>0)
+			return $this->User->parseUserData($data,$options);
+		else
+			return false;
+	}
+	function returnProfileId($tmls) {
+		$this->User->id = $tmls;
+		$data = $this->User->search();
+		return $data['User']['profile_id'];
+	}
+	
+	function beforeAction() {
+		$this->set('buildJs', array(
+			'jquery-1.7.2.min',
+			'jquery-ui-1.8.22.custom.min',
+			'source/tmls.framework',
+			'strophe.min',
+			'source/strophe.archive',
+			'source/iso8601_support',
+			'OpenLayers',
+			'source/tmls.xmpp',
+			'source/strophe.archive',
+			'source/iso8601_support'
+		));
+		$this->set('buildCss', array(
+			'ui-tenantmls/jquery-ui-1.8.22.custom',
+			'source/tmls.framework',
+			'ui.mainpage',
+			'ui.xmpp'
+		));
+		$session = (isset($_COOKIE['tmls_uniq_sess'])) ? $_COOKIE['tmls_uniq_sess'] : null;
+		if ($data = performAction('sessions', 'check', array($session))) {
+			// Get the signed in user information
+			$id = $data['Session']['user_id'];
+			$requestArray = array(
+				'API_URL'=> BASE_PATH.'/api/select/'.$id.'',
+				'API_ID'=>API_ID,
+				'API_SECRET'=>API_SECRET,
+				'USER_SESSION'=>$session,
+				'RETURN_TYPE'=>'json'
+			);
+			$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+			$request->execute();
+			$json_apidata = json_decode($request->getResponseBody(),true);
+
+			$this->set('logged_in',true);
+			$this->set('tmls_user', $json_apidata);
+		} else {
+			$this->set('logged_in',false);
+		}
+	}
+
+	function afterAction() {
+
+	}
+
+	function check_login($email, $password) {
+		$this -> User -> where('email', $email);
+		$this -> User -> where('password', $password);
+		$this -> User -> setLimit(1);
+		$data = $this -> User -> search();
+		if (count($data) > 0)
+			return $data[0];
+		else
+			return false;
+	}
+
+	function menu($tmls = null) {
+		$this->doNotRenderHeader = 1;
+		$session = (isset($_COOKIE['tmls_uniq_sess'])) ? $_COOKIE['tmls_uniq_sess'] : '';
+		if ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1))) || ((empty($id) || !is_numeric($id)) && $data = performAction('sessions', 'check', array($session)))) {
+			$id = ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1)))) ? $id : $data['User']['id'];
+			$requestArray = array(
+				'API_URL'=> BASE_PATH.'/api/select/'.$id,
+				'API_ID'=>API_ID,
+				'API_SECRET'=>API_SECRET,
+				'USER_SESSION'=>$session,
+				'RETURN_TYPE'=>'json'
+			);
+			$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+			$request->execute();
+			$json_apidata = json_decode($request->getResponseBody(),true);
+			$this -> set('menu', $json_apidata);
+		} else {
+			header("HTTP/1.0 404 Not Found");
+		}
+	}
+
+	function request($id = null) {
+		$this->doNotRenderHeader=1;
+		$id = ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1)))) ? $id : $data['User']['id'];
+		$requestArray = array(
+			'API_URL'=> BASE_PATH.'/api/select/'.$id,
+			'API_ID'=>API_ID,
+			'API_SECRET'=>API_SECRET,
+			'RETURN_TYPE'=>'json'
+		);
+		$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+		$request->execute();
+		$json_apidata = json_decode($request->getResponseBody(),true);
+		$this -> set('profile', $json_apidata);
+
+	}
+	function documents() {
+		$session = (isset($_COOKIE['tmls_uniq_sess'])) ? $_COOKIE['tmls_uniq_sess'] : '';
+		if ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1))) || ((empty($id) || !is_numeric($id)) && $data = performAction('sessions', 'check', array($session)))) {
+			$id = ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1)))) ? $id : $data['User']['id'];
+			$requestArray = array(
+				'API_URL'=> BASE_PATH.'/api/select/'.$id.'/custom',
+				'API_ID'=>API_ID,
+				'API_SECRET'=>API_SECRET,
+				'USER_SESSION'=>$session,
+				'RETURN_TYPE'=>'json',
+				'OPTION_INCLUDE_USER'=>true,
+				'OPTION_INCLUDE_PROFILE'=>true,
+				'OPTION_INCLUDE_UPLOAD'=>true
+			);
+			$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+			$request->execute();
+			$json_apidata = json_decode($request->getResponseBody(),true);
+			$this -> set('document', $json_apidata);
+		} else {
+			header("HTTP/1.0 404 Not Found");
+		}
+	}
+	function manage() {
+		$session = (isset($_COOKIE['tmls_uniq_sess'])) ? $_COOKIE['tmls_uniq_sess'] : '';
+		if ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1))) || ((empty($id) || !is_numeric($id)) && $data = performAction('sessions', 'check', array($session)))) {
+			$id = ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1)))) ? $id : $data['User']['id'];
+			$requestArray = array(
+				'API_URL'=> BASE_PATH.'/api/select/'.$id.'/custom',
+				'API_ID'=>API_ID,
+				'API_SECRET'=>API_SECRET,
+				'USER_SESSION'=>$session,
+				'RETURN_TYPE'=>'json',
+				'OPTION_INCLUDE_USER'=>true,
+				'OPTION_INCLUDE_PROFILE'=>true,
+				'OPTION_INCLUDE_PRIVILEGE'=>true,
+				'OPTION_INCLUDE_REQUEST'=>true,
+				'OPTION_INCLUDE_PENDING'=>true
+			);
+			$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+			$request->execute();
+			$json_apidata = json_decode($request->getResponseBody(),true);
+			$this -> set('manage', $json_apidata);
+		} else {
+			header("HTTP/1.0 404 Not Found");
+		}
+	}
+	function index($tab = null, $pm = null) {
+		if (isset($_POST['doNotRenderHeader'])) {
+			$this->doNotRenderHeader=$_POST['doNotRenderHeader'];
+		}
+		if (isset($_POST['inframe']))
+			$this->set('inframe',1);
+
+		if (empty($tab))
+			$tab = 'dashboard';
+
+		$this->set('page_tab',$tab);
+		$this->set('pm',$pm);
+	}
+
+	function dashboard() {
+	}
+
+	function profile($id = null, $tab = null) {
+		// Get profile by TMLS_NUMBER or if empty get by session data
+		$session = (isset($_COOKIE['tmls_uniq_sess'])) ? $_COOKIE['tmls_uniq_sess'] : '';
+		if ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1))) || ((empty($id) || !is_numeric($id)) && $data = performAction('sessions', 'check', array($session)))) {
+			$id = ((!empty($id) && is_numeric(substr($id, 1, strlen($id) - 1)))) ? $id : $data['User']['id'];
+			$requestArray = array(
+				'API_URL'=> BASE_PATH.'/api/select/'.$id,
+				'API_ID'=>API_ID,
+				'API_SECRET'=>API_SECRET,
+				'USER_SESSION'=>$session,
+				'RETURN_TYPE'=>'json'
+			);
+			$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+			$request->execute();
+			$json_apidata = json_decode($request->getResponseBody(),true);
+			$this -> set('profile', $json_apidata);
+
+			// Get the logged in users information
+			if ($data = performAction('sessions', 'check', array($session))) {
+				// Get the signed in user information
+				$id = $data['Session']['user_id'];
+				$requestArray = array(
+					'API_URL'=> BASE_PATH.'/api/select/'.$id.'',
+					'API_ID'=>API_ID,
+					'API_SECRET'=>API_SECRET,
+					'USER_SESSION'=>$session,
+					'RETURN_TYPE'=>'json'
+				);
+				$request = new RestRequest($requestArray['API_URL'],'POST',$requestArray);
+				$request->execute();
+				$json_apidata = json_decode($request->getResponseBody(),true);
+
+				$this->set('logged_in',true);
+				$this->set('tmls_user', $json_apidata);
+			} else {
+				$this->set('logged_in',false);
+			}
+		} else {
+			header("HTTP/1.0 404 Not Found");
+		}
+	}
+
+	function signup() {
+		if (isset($_COOKIE['tenantmls-register'])) {
+			$session = explode('&', $_COOKIE['tenantmls-register']);
+			foreach ($session as $value) {
+				$value = explode(":", $value);
+				$session_array[$value[0]] = $value[1];
+			}
+		} else
+			$session_array = array();
+		if (isset($_POST['user_type']))
+			$session_array['user_type'] = $_POST['user_type'];
+
+		if (isset($_POST['name']))
+			$session_array['name'] = $_POST['name'];
+
+		if (isset($_POST['email']))
+			$session_array['email'] = $_POST['email'];
+
+		if (isset($_POST['password']))
+			$session_array['password'] = md5($_POST['password']);
+
+		if (isset($_POST['company']))
+			$session_array['company'] = $_POST['company'];
+
+		if (isset($_POST['license_status']))
+			$session_array['license_status'] = $_POST['license_status'];
+
+		if (isset($_POST['max_rent']))
+			$session_array['max_rent'] = $_POST['max_rent'];
+
+		if (isset($_POST['occupants_adults']))
+			$session_array['occupants_adults'] = $_POST['occupants_adults'];
+
+		if (isset($_POST['credit_snapshot']))
+			$session_array['credit_snapshot'] = $_POST['credit_snapshot'];
+
+		if (isset($_POST['desired_bedrooms']))
+			$session_array['desired_bedrooms'] = $_POST['desired_bedrooms'];
+
+		if (isset($_POST['desired_locale-state'])) {
+			if (isset($_POST['desired_locale-city'])) {
+				$session_array['desired_locale'] = $_POST['desired_locale-city'];
+			}
+		}
+
+		$session_data = '';
+		foreach ($session_array as $key => $value) {
+			$session_data .= "$key:$value&";
+		}
+		setcookie('tenantmls-register', rtrim($session_data, '&'), time() + 60 * 60 * 24, '/', false);
+
+		if (isset($_POST['signUpForm_submit'])) {
+			$error = array();
+			if (isset($_POST['user_type']) && $_POST['user_type'] == 1) {
+				if (empty($_POST['agree_info'])) {
+					array_push($error, 'You must confirm your information');
+				}
+			}
+			if (empty($_POST['agree_tos'])) {
+				array_push($error, 'You must agree to the Terms of Service');
+			}
+			if (empty($_POST['agree_pp'])) {
+				array_push($error, 'You must agree to the Privacy Policy');
+			}
+			if (empty($_POST['agree_ffh'])) {
+				array_push($error, 'You must agree to Federal Fair Housing Laws');
+			}
+
+			if (count($error) == 0) {
+				$password = ($_POST['user_type'] == 1) ? $_POST['md5Password'] : md5($_POST['password']);
+				$this->User->user_type = $_POST['user_type'];
+				$this->User->email = $_POST['email'];
+				$this->User->password = $password;
+				
+				$this->User->confirm_key = md5($password . microtime());
+				$user_id = $this->User->save(true);
+				
+				// Update user db
+				$this->User->id=$user_id;
+				// start free trial
+				if ($_POST['user_type'] == 1) {
+					$this -> User -> paid_start_date = date("Y-m-d H:i:s");
+					$this -> User -> paid_end_date = date("Y-m-d H:i:s", strtotime("+30 days"));
+				} else {
+					// create desired locale
+					performAction('locales', 'add_desired', array($user_id, $_POST['desired_locale'], md5('test_code#')));
+				}
+				// Create their profile/setting db
+				$this-> User->setting_id = performAction('settings', 'create_entry', array());
+				$profile_posts = ($_POST['user_type'] == 1) ? array(1, $_POST['name'], $_POST['email'], $_POST['company'], $_POST['icense_status']) : array(0, $_POST['name'], $_POST['email'], $_POST['max_rent'], $_POST['desired_bedrooms'], $_POST['occupants_adults'], $_POST['credit_snapshot']);
+				$this->User->profile_id = $profile_id = performAction('profiles', 'create_entry', $profile_posts);
+				$this->User->save();
+				// remove the signup cookie
+				setcookie('tenantmls-register', 0, time() - 3600, '/', false);
+				# USE FALSE FOR LOCALHOST
+				unset($_COOKIE['tenantmls-register']);
+				//login
+				$uniq_sess = substr(sha1($_POST['email'] . microtime()),0,52);
+				performAction('sessions','register_session',array($user_id, $uniq_sess, md5('test_code#')));
+				setcookie('tmls_uniq_sess', $uniq_sess, time() + 60 * 60 * 24, '/', false);
+				// 1 day
+				header("Location:" . BASE_PATH . '/users/view/');
+			} else
+				$this -> set('error', $error);
+		}
+		$this -> set('session_array', $session_array);
+	}
+
+	function add() {
+		$this -> doNotRenderHeader = 1;
+		// called by agent when adding a tenant
+		if (isset($_POST['addTenant'])) {
+			// adding a tenant
+			$this -> User -> user_type = 0;
+			// generate tmls #
+			$tmls_number = "T";
+			$tmls_number .= substr(microtime(), 2, 4);
+			$tmls_number .= substr(time(), 5, 4);
+			$this -> User -> tmls_number = $tmls_number;
+
+			// Create their profile/setting db
+			$this -> User -> setting_id = performAction('settings', 'create_entry', array());
+			$profile_posts = array(0, $_POST['name'], $_POST['occupants_adults'] . ',' . $_POST['occupants_children'], $_POST['desired_beds'] . ',' . $_POST['desired_baths'], $_POST['desired_locale_state'] . ',' . $_POST['desired_locale_city'] . ',' . $_POST['desired_locale_county'], $_POST['on_program'], $_POST['max_rent'], $_POST['credit_snapshot']);
+			$this -> User -> profile_id = $profile_id = performAction('profiles', 'create_entry', $profile_posts);
+			$this -> User -> save();
+			//header("Location:".BASE_PATH.'/users/view/');
+		}
+	}
+
+	function confirm($key = null) {
+		$this -> User -> where('confirm_key', $key);
+		$this -> User -> setLimit(1);
+		$data = $this -> User -> search();
+		$this -> User -> id = $data[0]['User']['id'];
+		$this -> User -> confirm_key = 'null';
+		$this -> User -> confirm = 1;
+		$this -> User -> save();
+		header("Location: " . BASE_PATH . '/users/view/');
+	}
+	
+	/* 
+	 * Faux function
+	 */
+	 function register() {
+	 	// LOL I DO NOTHING!
+	 }
+}
+?>

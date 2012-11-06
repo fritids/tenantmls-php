@@ -1,0 +1,145 @@
+$(document).ready(function() {
+	var user_id = $('input[name="x-user_id"]').val();
+	/* PROFILE TABS */
+	hideProfileTabs();
+	// Load the user profile
+	//$('li#profile-content-Overview').html('<div class="ui-framework-ajax-loader"></div>').load('/tmls/framework/profiles/view/'+user_id);
+	
+	var show_content = $('ul.ui-profile-tabs li#active').attr('class');
+	$('li#profile-'+show_content).show();
+	
+	$('ul.ui-profile-tabs li').click(function() {
+		var show_content = $(this).attr('class');
+		$('ul.ui-profile-tabs li').attr('id','');
+		$(this).attr('id','active');
+		hideProfileTabs();
+		$('li#profile-'+show_content).show();
+		switch(show_content){
+			case 'content-Dashboard' : var url_state = 'dashboard'; break;
+			default : case 'content-Overview' : var url_state = 'about_me'; break;
+			case 'content-Forms' : var url_state = 'forms'; break;
+			case 'content-MyTenants' : var url_state = 'my_tenants'; break;
+			case 'content-Reviews' : var url_state = 'reviews'; break;
+			case 'content-Verification' : var url_state = 'verification'; break;
+		}
+		window.history.replaceState(null, null, url_state);
+	});
+	
+	/* END PROFILE TABS */
+	$('#ui-profile-sendMessage').click(function() {
+		ajaxOpenWindow(TenantMLS.BASE_PATH+'/messages/send_to/'+user_id,680,400);
+	});
+	$('#ui-profile-addTenant').click(function() {
+		$('span#ui-profile-add-tenant-icon').css('background','url("/images/ajax-loader.gif") no-repeat');
+		ajaxOpenWindow(TenantMLS.BASE_PATH+'/api/register/tenant',680,400);
+		$('span#ui-profile-add-tenant-icon').css('background','url("/images/ui-framework-add-tenant-icon.png") no-repeat');
+	});
+
+	/*
+	 * REQUESTING A TENANT
+	 * Function is obsolete for now until I find a better method
+	 * Using example code from:
+	 * Professional XMPP Programming with JavaScript and jQuery (Wrox, Jan 2010)
+	 */
+	/*
+	$('#ui-profile-requestTenant').click(function() {
+		$('span#ui-profile-add-tenant-icon').css('background','url("/images/ajax-loader.gif") no-repeat');
+		ajaxOpenWindow(TenantMLS.BASE_PATH+'/messages/request_tenant/'+user_id,680,400);
+		$('span#ui-profile-add-tenant-icon').css('background','url("/images/ui-framework-add-tenant-icon.png") no-repeat');
+	});
+	*/
+	// Picture
+	$('#ui-pictureGallery').click(function() {
+		var tmls = $(this).parent('div').attr('id');
+		ajaxOpenWindow(TenantMLS.BASE_PATH+'/pictures/gallery/'+tmls,818,552);
+	});
+	
+	// Locale functions for adding coverage area
+	$('select[name="coverage_locale_state"]').change(function() {
+		$.post('/locales/ajax_city', {
+			state : $(this).val()
+		}, function(data) {
+			$('select[name="coverage_locale_city"]').html(data);
+		});
+	});
+	// add cities
+	$('select[name="coverage_locale_city"]').change(function() {
+		$.post("/locales/add_desired", {
+			user_id : user_id,
+			is_agent : 1,
+			zip : $(this).val()
+		}, function(data) {
+			var split = data.split('$');
+			$('.ui-profile-ribbon hr#seperate_cities').show();
+			$('select[name="coverage_locale_city"] option:first').attr('selected','SELECTED');
+			$('ul#coverage-location-list').append('<li><a class="remove_coverage_locale" href="javascript:void(0)" id="'+split[0]+'">x</a> '+split[1]+'</li>');
+			$('ul#coverage-location-list li:last-child').hide().fadeIn('slow');
+			$('ul#coverage-location-list li').click(function() {
+				$(this).fadeOut('slow');
+				$.post(TenantMLS.BASE_PATH+"/locales/remove_desired", {
+					locale_id : $(this).children('a').attr('id')
+				});
+				return false;
+			});
+		});
+		return false;
+	});
+	$('ul#coverage-location-list li').click(function() {
+		$(this).fadeOut('slow');
+		$.post(TenantMLS.BASE_PATH+"/locales/remove_desired", {
+			locale_id : $(this).children('a').attr('id')
+		});
+		return false;
+	});
+	$('ul#ui-profile-newest-tenants li').click(function() {
+		window.location = $(this).children('a').attr('href');
+	});
+	//search bar
+	$('input[name="search"]').click(function() {
+		window.location = TenantMLS.BASE_PATH+'/locales/search/'+$('select[name="search-locale-state"]').val()+'-'+$('select[name="search-locale-city"] option:selected').text()+'-'+$('select[name="search-locale-city"]').val()+'/showopen=true';
+		return false;
+	});
+	// respond action
+	respond_menu_open = false;
+	
+	$('a.ui-profile-message-respond').click(function() {
+		if (!respond_menu_open) {
+			var leftMargin = ($(this).width() - $(this).next('div').width());
+			$(this).next('div').css({'margin-left':leftMargin}).slideDown('fast');
+			respond_menu_open = true;
+		} else {
+			$(this).next('div').slideUp('fast');
+			respond_menu_open = false;
+		}
+		return false;
+	});
+	$('a.allowAgent').click(function() {
+		var grant_user_id = $(this).attr('id');
+		var user_id = $('input[name="x-user_id"]').val();
+		$.post(TenantMLS.BASE_PATH+"/messages/respond/true", {
+			message_id : $('input[name="message-id-'+grant_user_id+'"]').val(),
+			privileges : $('input[name="grant_view-'+grant_user_id+'"]:checked').val()+','+$('input[name="grant_edit-'+grant_user_id+'"]:checked').val()+','+$('input[name="grant_upload-'+grant_user_id+'"]:checked').val()+',',
+			grant_id : grant_user_id
+		}, function(data) {
+			$.post(TenantMLS.BASE_PATH+"/privileges/create", {
+				user_id : user_id,
+				privileges : $('input[name="grant_view-'+grant_user_id+'"]:checked').val()+','+$('input[name="grant_edit-'+grant_user_id+'"]:checked').val()+','+$('input[name="grant_upload-'+grant_user_id+'"]:checked').val()+',',
+				exclusive : $('input[name="exclusive-'+grant_user_id+'"]').val(),
+				grant_id : grant_user_id
+			}, function(data) {
+				// some effects on the element
+				alert('You accepted this agent to represent you');
+			});
+		});
+
+	return false;
+	});
+});
+function hideProfileTabs() {
+	$('li#profile-content-Dashboard').hide();
+	$('li#profile-content-Overview').hide();
+	$('li#profile-content-Forms').hide();
+	$('li#profile-content-MyTenants').hide();
+	$('li#profile-content-Verification').hide();
+	$('li#profile-content-Reviews').hide();
+}

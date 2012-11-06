@@ -1,0 +1,94 @@
+#ui-pages-top {
+	background-color:#F5F6F1!important;
+	padding:20px 0 120px 0;
+}
+.ui-pages-title {
+	font-size:2.7em;
+	font-weight:bold;
+	color:#272727;
+	text-shadow: 1px 1px 1px #FFFFFF;
+	filter: dropshadow(color=#FFFFFF, offx=1, offy=1); 
+	display:block;
+	text-align:center;
+}
+.ui-pages-subtitle {
+	text-align:center;
+	display:block;
+	font-size:1.4em;
+	color:#999999;
+	text-shadow: 1px 1px 1px #FFFFFF;
+	filter: dropshadow(color=#FFFFFF, offx=1, offy=1); 
+}
+.ui-pages-divider {
+	border:0;
+	border-top:1px solid #CCCCCC;
+	border-bottom:1px solid #FFFFFF;
+	-webkit-box-shadow:0px 0px 2px 0px #FFFFFF;
+    box-shadow:0px 0px 2px 0px #FFFFFF; 
+    margin:40px 40px 40px 40px;
+}
+
+#ui-pages-reasons {
+	list-style:none;
+	position:absolute;
+	margin:0 10px;
+}
+#ui-pages-reasons li {
+	height:170px;
+	display:block;
+	float:left;
+	width:285px;
+	border:1px solid #d2d2d2;
+	-moz-border-radius:7px;
+	border-radius:7px;
+	-webkit-border-radius:7px;
+	margin:0 20px 0 0;
+	-webkit-box-shadow:0px 1px 2px 0px #cccccc;
+    box-shadow:0px 1px 2px 0px #cccccc; 
+background: #f8f8f8; /* Old browsers */
+background: -moz-linear-gradient(top, #f8f8f8 0%, #ffffff 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #f8f8f8 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #f8f8f8 0%,#ffffff 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #f8f8f8 0%,#ffffff 100%); /* IE10+ */
+background: linear-gradient(to bottom, #f8f8f8 0%,#ffffff 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+#ui-pages-reasons li:last-child {
+	margin:0;
+}
+.reasons-title {
+	padding:20px 20px 15px 20px;
+	display:block;
+	font-weight:bold;
+	font-size:1.2em;
+	color:#272727;
+}
+.reasons-text{
+	padding:0 20px 10px 20px;
+	font-size:1em;
+	color:#666666;
+	display:block;
+}
+#ui-pages-bottom {
+	background-color:#FFFFFF;
+	border-top:1px solid #d2d2d2;
+	padding:80px 0 0 0;
+}
+
+.ui-pages-sub {
+	list-style:none;
+}
+.ui-pages-sub-title {
+	display:block;
+	padding:0 0 10px 0;
+	font-weight:bold;
+	font-size:1.3em;
+	color:#333333;
+}
+.ui-pages-sub-text {
+	font-size:1em;
+	color:#666666;
+	display:block;
+	padding:0 0 30px 0;
+}

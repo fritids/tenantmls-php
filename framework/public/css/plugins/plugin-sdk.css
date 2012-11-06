@@ -1,0 +1,288 @@
+/*
+ * CSS Setup
+ */
+body,html {margin:0px;padding:0;background-color:#FFFFFF;}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+h1,h2,h3,h4,h5,h6,p,span,a,div,table,table tr,table td,tbody,ul,li
+{font-family:'Verdana','Geneva','Arial','Helvetica','sans-serif';text-decoration:none;border:0;margin:0;padding:0;}
+
+/*
+ * TenantMLS Plugin SDK
+ * Created: Sat, July 14, 2012 @ 3:58pm
+ * @author Thomas Lackemann
+ */
+a {color:#006AA3;}
+div.plugin-container,div.plugin-body {
+	width:100%;
+}
+div.plugin-header {
+	width:100%;
+	padding:5px 0;
+	font-size:0.75em;
+	color:#F8F8F8;
+	background-color:#83a300;
+	border-bottom:1px solid #FFFFFF;
+}
+span.plugin-header-text {
+	padding:0 0 0 8px;
+}
+.clearfix {clear:both;}
+.clearfix-left {clear:left;}
+.clearfix-right {clear:right;}
+.block {display:block;}
+.ui-autocomplete-loading { background: white url('../images/ajax-loader.gif') right center no-repeat; }
+
+/*
+ * Sign In Page CSS
+ */
+#register-sidebar {
+	float:right;
+	width:34%;
+	padding:5px 0;
+	background-color:#E9E9E9;
+}
+#register-sidebar h5 {
+	padding:0 5px;
+}
+#register-sidebar label {
+	font-size:0.8em;
+	display:block;
+	color:#999999;
+	margin:5px 0 0 0;
+}
+div#register-signin {
+	padding:0 5px;
+}
+div#register-mainbar {
+	width:100%;
+	padding:8px 0 0 0;
+	background-color:#F8F8F8;
+	border-bottom:1px solid #d2d2d2;
+}
+ul#register-nav {
+	list-style:none;
+}
+ul#register-nav li {
+	float:left;
+	padding:5px 8px;
+	margin:3px 0 -1px 8px;
+	background-color:#FFFFFF;
+	text-align:center;
+	font-size:0.7em;
+	color:#d2d2d2;
+	border:1px solid #d2d2d2;
+}
+ul#register-nav li#active {
+	color:#000000;
+	border-bottom:1px solid #FFFFFF;
+}
+/*
+ * TenantFinder CSS
+ */
+div#tenantfinder-mainbar {
+	width:100%;
+	padding:8px 0 0 0;
+	background-color:#F8F8F8;
+	border-bottom:1px solid #d2d2d2;
+}
+ul#tenantfinder-nav {
+	list-style:none;
+}
+ul#tenantfinder-nav li {
+	float:left;
+	padding:5px 8px;
+	margin:3px 0 -1px 8px;
+	background-color:#FFFFFF;
+	text-align:center;
+	font-size:0.7em;
+	color:#d2d2d2;
+	border:1px solid #d2d2d2;
+}
+ul#tenantfinder-nav li#active {
+	color:#000000;
+	border-bottom:1px solid #FFFFFF;
+}
+div#tenantfinder-body {
+	width:100%;
+	background-color:#E9E9E9;
+	border-bottom:1px solid #d2d2d2;
+}
+
+div#tenantfinder-content {
+	width:66%;
+	background-color:#555555;
+	float:left;
+}
+div#tenantfinder-sidebar {
+	float:left;
+	width:34%;
+	padding:5px 0;
+	background-color:#E9E9E9;
+}
+div#tenantfinder-sidebar h5 {
+	padding:0 5px;
+}
+ul#tenantfinder-sidebar-areas {
+	list-style:none;
+	margin:5px 0 0 0;
+}
+ul#tenantfinder-sidebar-areas li {
+	font-size:0.8em;
+	padding:0 10px;
+}
+ul#tenantfinder-sidebar-areas li a {
+	font-style:italic;
+}
+div#tenantfinder-sidebar hr {
+	border:0;
+	border-top:1px solid #D2D2D2;
+	border-bottom:1px solid #FFFFFF;
+}
+div#tenantfinder-sidebar select {
+	margin:3px 0 0 5px;
+}
+span#tenantfinder-results-view {
+	float:right;
+	display:block;
+}
+ul.tenantfinder-results {
+	display:block;
+	list-style:none;
+}
+	#results-list li {
+		display:block;
+		width:100%;
+		background-color:#FFFFFF;
+		border-bottom:1px solid #E9E9E9;
+		clear:left;
+	}
+	#results-list li img {
+		height:45px;
+		width:45px;
+		margin:5px;
+		float:left;
+	}
+	#results-list li h5 a {
+		color:#006AA3;
+		text-decoration:none;
+	}
+	#results-list li h5 a:hover {
+		text-decoration:underline;
+	}
+	#results-list li .overview-agency {
+		font-weight:normal;
+		font-size:0.9em;
+		color:#333333;
+		padding:0 0 0 5px;
+	}
+	#results-list li .results-information {
+		padding:5px 0 0 0;
+	}
+	#results-list li .overview-information {
+		font-size:0.75em;
+		color:#666666;
+	}
+	#results-list li .overview-information a {
+		color:#666666;
+	}
+	#results-list li .overview-information a:hover {
+		text-decoration:underline;
+	}
+/*
+ * Contact Page CSS
+ */
+table#contact-form-layout {
+	color:#999999;
+	margin:5px 0 0 0;
+	border-bottom:1px solid #D2D2D2;
+}
+table#contact-form-layout tr td {
+	border:1px solid #FFFFFF;
+}
+table#contact-form-layout tr td:first-child {
+	width:20%;
+	padding:5px 10px;
+	font-size:0.75em;
+	text-align:right;
+	vertical-align:top;
+}
+table#contact-form-layout tr td:last-child {
+	width:80%;
+	padding:2px 5px;
+	vertical-align:middle;
+	color:#999999;
+	font-size:0.8em;
+	text-align:top;
+}
+table#contact-form-layout tr.grey td {
+	background-color:#e9e9e9;
+	color:#272727;
+}
+.contact-form-options {
+	font-size:0.8em;
+	color:#999999;
+	padding:0 0 0 5px;
+}
+.contact-form-options input {
+}
+.contact-form-option {
+	position:relative;
+	margin:2px 0 0 -5px;
+}
+
+#register-select-format-beds span,
+#register-select-format-beds div,
+#register-select-format-credit span,
+#register-select-format-credit div {
+	width:70%;
+}
+#contact-form-contact {
+	background-color:#E9E9E9;
+	border-bottom:1px solid #D2D2D2;
+}
+#contact-form-contact-picture {
+	float:left;
+	height:50px;
+	padding:3px;
+	width:50px;
+	background-color:#FFFFFF;
+	border:1px solid #D2D2D2;
+	margin:5px;
+}
+#contact-form-contact-picture img {
+	height:50px;
+	width:50px;
+}
+#contact-form-information {
+	margin:8px 0 0 0;
+	float:left;
+}
+#contact-form-agency {
+	font-size:0.7em;
+	color:#666666;
+}
+#contact-form-header {
+	background-color:#F8F8F8!important;
+	color:#272727;
+	border-top:1px solid #FFFFFF;
+	font-weight:bold!important;
+	border-bottom:1px solid #D2D2D2;
+}
+
+/* Autocomplete
+ * Move this class into own CSS file when done
+ */
+.ui-menu {
+	position:absolute;
+	padding:5px 10px;
+	list-style:none;
+	background-color:#000000;
+	width:inherit;
+	font-size:0.7em;
+}
+.ui-menu a {color:#999999;cursor:pointer;}
+.ui-menu a span.blue {color:#006AA3;font-weight:bold;}
+.selected {background-color:#FFD65E;}

@@ -1,0 +1,115 @@
+
+div#ui-picture-UploadPage {
+	width:100%;
+	height:490px;
+	padding:10px 0;
+	background-color:#F8F8F8;
+	text-align:center;
+        -webkit-box-shadow: inset 0px 0px 10px 0px #D2D2D2;
+    box-shadow: inset 0px 0px 10px 0px #D2D2D2; 
+}
+#content-upload-file {
+	padding:80px 0 0 0;
+}
+div#ui-picture-UploadPage hr {
+	border:0;
+	border-top:1px solid #CCCCCC;
+        margin:10px 20px;
+	border-bottom:1px solid #FFFFFF;
+}
+div#ui-picture-UploadPage h4 {
+	font-weight:bold;
+        display:block;
+        margin:20px 0 0 0;
+	color:#000000;
+}
+div#ui-picture-UploadPage h5 {
+	font-size:0.65em;
+	font-weight:normal;
+	color:#333333;
+	padding:3px 10px 0 10px;
+}
+
+form#ui-picture-uploadForm {
+	padding:5px 10px 0 10px;
+}
+form#ui-picture-uploadForm input#ui-picture-uploadForm-submit {
+    display:block;
+	padding:2px 8px;
+    font-size:0.8em;
+    width:100px;
+    font-weight:bold;
+    color:#FFFFFF!important;
+    background: #239ddb; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzIzOWRkYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDZhYTMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #239ddb 0%, #006aa3 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#239ddb), color-stop(100%,#006aa3)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #239ddb 0%,#006aa3 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #239ddb 0%,#006aa3 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #239ddb 0%,#006aa3 100%); /* IE10+ */
+    background: linear-gradient(top, #239ddb 0%,#006aa3 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#239ddb', endColorstr='#006aa3',GradientType=0 ); /* IE6-8 */
+    -webkit-border-radius: 3px 3px;
+    border-radius: 3px 3px;
+    -webkit-box-shadow: inset 0px 0px 1px 0px #ffffff;
+    box-shadow: inset 0px 0px 1px 0px #ffffff; 
+    border:1px solid #006aa3;
+    margin:10px auto;
+}
+form#ui-picture-uploadForm input#ui-picture-uploadForm-submit:hover {
+	text-decoration:none!important;
+    -webkit-box-shadow: 0px 0px 3px 1px #999999;
+    box-shadow: 0px 0px 3px 1px #999999; 
+    cursor:pointer;
+}
+h5#ui-picture-center-text {
+	text-align:center; display:block;
+}
+h5#ui-picture-center-text a {
+	color:#006aa3;
+}
+#ui-picture-thumbnail {
+	float:left;
+	margin:5px 20px 0 10px;
+}
+#showTakePicture {
+	background:url('../images/ui-pictures-take-photo-icon.png') center no-repeat;
+	height:90px;
+	width:90px;
+	border:0;
+	display:block;
+	margin:10px auto;
+	text-decoration:none;
+}
+form#ui-picture-deletePic input#ui-picture-deletePic-submit {
+	padding:2px 8px;
+    font-size:0.8em;
+    width:100px;
+    font-weight:bold;
+    color:#FFFFFF!important;
+    background: #bc0003; /* Old browsers */
+background: -moz-linear-gradient(top, #bc0003 0%, #870505 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bc0003), color-stop(100%,#870505)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #bc0003 0%,#870505 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #bc0003 0%,#870505 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #bc0003 0%,#870505 100%); /* IE10+ */
+background: linear-gradient(top, #bc0003 0%,#870505 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc0003', endColorstr='#870505',GradientType=0 ); /* IE6-9 */
+    -webkit-border-radius: 3px 3px;
+    border-radius: 3px 3px;
+    -webkit-box-shadow: inset 0px 0px 1px 0px #ffffff;
+    box-shadow: inset 0px 0px 1px 0px #ffffff; 
+    border:1px solid #870505;
+    margin:20px 0 0 0;
+}
+form#ui-picture-deletePic input#ui-picture-deletePic-submit:hover {
+	text-decoration:none!important;
+    -webkit-box-shadow: 0px 0px 3px 1px #999999;
+    box-shadow: 0px 0px 3px 1px #999999; 
+    cursor:pointer;
+}
+#content-take-picture {
+	margin:-10px 0 0 0;
+	display:block;
+}

@@ -1,0 +1,7 @@
+# Exclude config files #
+framework/config/serverconfig.php
+framework/public/js/source/tmls.sdk.js
+
+framework/public/css/.DS_Store
+framework/public/css/test/
+framework/public/css/testoutputfile.css

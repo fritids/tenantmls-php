@@ -1,0 +1,30 @@
+/* 
+    Document   : ui.framework.css
+    Created on : Jun 14, 2012, 8:46:25 AM
+    Author     : thomas
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html,body,h1,h2,h3,h4,h5,h6,a,p,span,ul,li,table,td,tr {
+    margin:0;
+    padding:0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+h1,h2,h3,h4,h5,h6,a,p,span,ul,li,table,td,tr {
+    font-family: "Arial","Helvetica","Trebuchet MS", "Verdana", "Geneva", sans-serif;
+}
+p {line-height:1.4em;}
+
+.ui-float-right {float:right;}
+.ui-margin-right-5px {margin-right:5px;}
+.blue {color:#006AA3!important;}
+.green {color:#83A300!important;}
+.red {color:#BC0003!important;}
+.darkgray{color:#333333!important;}
+.normal {font-weight:normal!important;}
+
+.clear {clear:both!important;}

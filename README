@@ -1,0 +1,61 @@
+##INSTALL TENANTMLS FOR LOCAL DEVELOPMENT##
+
+TenantMLS utilizes git, a subversioning and authoring system that makes everyones' lives a lot easier.
+Git allows multiple developers to work together without the worry of overwriting files. All the server repos
+have been setup and are ready for you to begin developing.
+fuck you tom
+
+
+Getting started:
+1)	Install git on your computer
+	  * Instructions can be found at http://git-scm.com
+
+2) Install and run LAMP/MAMP/WAMP
+	* Makes your computer a local server for Apache, MySQL, and PHP
+	* Gives you a suitable development environment
+	* Access by going to http://localhost/
+	* phpMyAdmin -> http://localhost/phpMyAdmin
+	* PATH_TO_HTDOCS = path where program loads the web pages
+
+3) Open Command Prompt (Windows) or Terminal (Mac/Linux)
+	$[terminal/cmd]#>	cd [PATH_TO_HTDOCS]
+	$[terminal/cmd]#> 	git clone ssh://[username]@tenantmls.com/usr/git/tmls.git tmls
+	$[terminal/cmd]#>	cd tmls
+
+	Voila! You now how a local copy of TenantMLS.
+	Go to http://localhost/tmls/framework to view your development site (won't work yet)
+
+4) Import databases
+	Import the file 'framework/db/tmls_framework.sql' into phpMyAdmin to create the dependent dbs
+
+5) Configuration
+	Create the file framework/config/serverconfig.php
+	============================================================================================================
+		define('DB_HOST','localhost');
+		define('DB_USER','root');
+		define('DB_PASSWORD','root');
+		define('DB_NAME','tmls_framework');
+		define('BASE_PATH','http://localhost:8888/tmls/framework');
+		define ('DEVELOPMENT_ENVIRONMENT',true);
+	============================================================================================================
+
+6) Commit and Push (Save and Publish)
+	Save your files as normal.
+
+	"Commit" your changes often (files that have been saved) and leave well-explained comments on your edits
+	Remember: If you mess it all up, you can always revisit a previous commit, so don't not do it!
+
+	============================================================================================================
+	Example:
+	|	$[terminal/cmd]#>	git commit -m "[INSERT_YOUR_COMMENT_HERE]" -a
+		(-a commits all files changed)
+	============================================================================================================
+
+	"Push" your changes when you are finished developing - making all changes public to the web server
+
+	============================================================================================================
+	Example:
+	|	$[terminal/cmd]#>	git push
+	============================================================================================================
+
+	When you see your changes live, pat yourself on the back. You just made TenantMLS a lot nicer of a place.
